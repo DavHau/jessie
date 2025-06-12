@@ -1,16 +1,19 @@
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixos-hardware.url = "github:NixOS/nixos-hardware";
   };
 
   outputs = {
     nixpkgs,
+    nixos-hardware,
     self,
   } @ inputs :
   let
 
     allSystems = [
       "aarch64-darwin"
+      "aarch64-linux"
       "x86_64-linux"
     ];
 
@@ -21,11 +24,16 @@
     });
 
   in {
-    nixosModules.jessie-portable = ./machines/jessie-portable/configuration.nix;
-
     nixosConfigurations.jessie-portable = pkgsFor.x86_64-linux.nixos {
       imports = [
-        self.nixosModules.jessie-portable
+        ./machines/jessie-portable/configuration.nix
+      ];
+    };
+
+    nixosConfigurations.jpi = pkgsFor.aarch64-linux.nixos {
+      imports = [
+        ./machines/jpi/configuration.nix
+        nixos-hardware.nixosModules.raspberry-pi-5
       ];
     };
 
