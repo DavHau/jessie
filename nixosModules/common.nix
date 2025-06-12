@@ -12,6 +12,10 @@
   # networking
   services.resolved.enable = true;
   networking.networkmanager.enable = true;
+  services.zerotierone = {
+    enable = true;
+    joinNetworks = [ "93AFAE59632EFB13" ];
+  }
 
   # ssh
   services.openssh.enable = true;
