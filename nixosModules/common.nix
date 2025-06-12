@@ -1,4 +1,4 @@
-{
+{pkgs, ...}: {
   # users
   users.mutableUsers = false;
   users.users.root.openssh.authorizedKeys.keys = [
@@ -7,6 +7,18 @@
   users.users.jessie.isNormalUser = true;
   users.users.jessie.extraGroups = [ "wheel" ];
 
+  services.ntp.enable = true;
+
+  # networking
+  services.resolved.enable = true;
+  networking.networkmanager.enable = true;
+
   # ssh
   services.openssh.enable = true;
+
+  environment.systemPackages = with pkgs; [
+    vim
+  ];
+
+  zramSwap.enable = true;
 }
