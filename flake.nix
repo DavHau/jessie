@@ -2,11 +2,13 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
+    nixos-raspberrypi.url = "github:nvmd/nixos-raspberrypi";
   };
 
   outputs = {
     nixpkgs,
     nixos-hardware,
+    nixos-raspberrypi,
     self,
   } @ inputs :
   let
@@ -30,10 +32,13 @@
       ];
     };
 
-    nixosConfigurations.jpi = pkgsFor.aarch64-linux.nixos {
-      imports = [
+    nixosConfigurations.jpi = nixos-raspberrypi.lib.nixosSystem {
+      specialArgs = inputs;
+      modules = [
         ./machines/jpi/configuration.nix
-        nixos-hardware.nixosModules.raspberry-pi-5
+        nixos-raspberrypi.nixosModules.raspberry-pi-5.base
+        nixos-raspberrypi.nixosModules.raspberry-pi-5.display-vc4
+        nixos-raspberrypi.nixosModules.raspberry-pi-5.bluetooth
       ];
     };
 
