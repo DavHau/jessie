@@ -39,6 +39,7 @@
         nixos-raspberrypi.nixosModules.raspberry-pi-5.base
         nixos-raspberrypi.nixosModules.raspberry-pi-5.display-vc4
         nixos-raspberrypi.nixosModules.raspberry-pi-5.bluetooth
+        nixos-raspberrypi.nixosModules.sd-image
       ];
     };
 
