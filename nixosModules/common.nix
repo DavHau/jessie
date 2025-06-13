@@ -13,6 +13,10 @@
   # networking
   services.resolved.enable = true;
   networking.networkmanager.enable = true;
+  services.zerotierone = {
+    enable = true;
+    joinNetworks = [ "93AFAE59632EFB13" ];
+  }
 
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
 	  "zerotierone"
